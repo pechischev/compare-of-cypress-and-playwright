@@ -21,38 +21,32 @@ describe('Testing TODO list', () => {
 		expect(items).toHaveLength(expectedCount)
 	}
 
-	describe('Add a task', () => {
-		async function createTask(title) {
-			const field = await addTaskField()
+	async function createTask(title) {
+		const field = await addTaskField()
 
-			await field.fill(title)
-			await field.press('Enter')
-		}
+		await field.fill(title)
+		await field.press('Enter')
+	}
 
-		it('The task can add', async () => {
-			await createTask('task 1')
+	it('Can add some tasks', async () => {
+		await createTask('task 1')
+		await createTask('task 2')
+		await createTask('task 3')
 
-			await expectTaskCount(1)
-		})
-
-		it('Can add some tasks', async () => {
-			await createTask('task 2')
-			await createTask('task 3')
-
-			await expectTaskCount(3)
-		})
+		await expectTaskCount(3)
 	})
 
 	it('The task can complete', async () => {
 		const tasks = await getTasks()
-		const checkbox = await tasks[0].$('.toggle')
+		const checkbox = await tasks[1].$('.toggle')
 		await checkbox.click()
 
-		expect(await tasks[0].getAttribute('class')).toEqual('completed')
+		expect(await tasks[1].getAttribute('class')).toEqual('completed')
 	})
 
 	it('The task can remove', async () => {
 		const tasks = await getTasks()
+		await tasks[0].hover()
 		const deleteButton = await tasks[0].$('.destroy')
 		await deleteButton.click()
 
@@ -60,8 +54,8 @@ describe('Testing TODO list', () => {
 	})
 
 	it('Check finish state', async () => {
-		const completedTask = page.$('.todo-list > .completed')
-		const activeTask = page.$('.todo-list > not(.completed)')
+		const completedTask = await page.$('.todo-list > .completed')
+		const activeTask = await page.$('.todo-list > :not(.completed)')
 
 		expect(completedTask).toBeTruthy()
 		expect(activeTask).toBeTruthy()
