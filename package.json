@@ -1,0 +1,20 @@
+{
+  "name": "for-leonid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cypress": "cypress open",
+    "playwright": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^26.0.22",
+    "cypress": "^6.8.0",
+    "jest": "^26.6.3",
+    "jest-cli": "^26.6.3",
+    "jest-playwright-preset": "^1.5.1",
+    "playwright": "^1.10.0"
+  }
+}
